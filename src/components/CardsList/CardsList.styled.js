@@ -52,6 +52,7 @@ export const Button = styled.button`
   font-size: 18px;
   line-height: 1.22;
   text-transform: uppercase;
+  background-color: #888;
 
   &:hover {
     background-color: #595959;

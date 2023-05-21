@@ -7,17 +7,13 @@ import {
   Button,
   Message,
 } from "./CardsList.styled";
-// import { Loader } from "../Loader/Loader";
 
 function CardsList() {
   const [users, setUsers] = useState([]);
   const [page, setPage] = useState(1);
   const [isLoadMore, setIsLoadMore] = useState(true);
-  // const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    // setIsLoading(true);
-
     try {
       if (page === 1) {
         fetch(
@@ -25,10 +21,8 @@ function CardsList() {
         )
           .then((res) => res.json())
           .then((results) => {
-            // setIsLoading(false);
             setUsers(results);
           });
-        // .finally(() => setIsLoading(false));
       }
       if (page > 1) {
         fetch(
@@ -36,16 +30,12 @@ function CardsList() {
         )
           .then((res) => res.json())
           .then((results) => {
-            // setIsLoading(false);
-
             if (results.length === 0) {
               return setIsLoadMore(false);
             }
 
-            // setIsLoadMore(true);
             setUsers((prev) => [...prev, ...results]);
           });
-        // .finally(() => setIsLoading(false));
       }
     } catch (error) {
       console.log(error);

@@ -1,6 +1,4 @@
 :root {
-  /* font-family: 'Montserrat', sans-serif; */
-  font-family: 'Lilita One', cursive;
     font-family: 'Montserrat', sans-serif;
   line-height: 1.5;
   font-weight: 500;
@@ -21,10 +19,6 @@ a {
 }
 
 body {
-  /* margin: 24px; */
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
   margin: 0;
   min-width: 320px;
   min-height: 100vh;

@@ -13,9 +13,6 @@ import {
   Userpic,
 } from "./Card.styled";
 
-// розібратися з svg
-// Перенести фетчі в окремий файл
-
 import logo from "../../img/logo.png";
 import boxes from "../../img/upper-img.png";
 import rectangle from "../../img/rectangle.png";
@@ -36,7 +33,6 @@ function Card({
 
   const handleFollow = () => {
     const updatedStatus = !isFollowed;
-
     updateButtonState(id, updatedStatus);
 
     try {
