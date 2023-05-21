@@ -1,18 +1,10 @@
-import axios from "axios";
-
-axios.defaults.baseURL = "https://connections-api.herokuapp.com";
-
-export async function fetchAll() {
-  const response = await axios.get("/contacts");
-  return response.data;
-}
-
-// export const fetchPopularMovies = async (controller) => {
-//   const response = await axios.get(
-//     `${BASE_URL}trending/all/day?api_key=${API_KEY}`,
-//     {
-//       signal: controller.signal,
-//     }
-//   );
-//   return response.data;
-// };
+// export async function getFirstpage() {
+//   await fetch(
+//     `https://6453dfb6c18adbbdfeaa041f.mockapi.io/tweets/users?page=1&limit=3`
+//   )
+//     .then((res) => res.json())
+//     .then((results) => {
+//       console.log("results", results);
+//       return results;
+//     });
+// }

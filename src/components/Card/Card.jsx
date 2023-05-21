@@ -1,4 +1,5 @@
 import { NumericFormat } from "react-number-format";
+import PropTypes from "prop-types";
 
 import {
   CardItem,
@@ -13,10 +14,7 @@ import {
 } from "./Card.styled";
 
 // розібратися з svg
-// дописати пропси
-// !!!! ВИДАЛИ ГАНСЕЛЯ !!!
 // Перенести фетчі в окремий файл
-// Допиши до фетчів кетчі
 
 import logo from "../../img/logo.png";
 import boxes from "../../img/upper-img.png";
@@ -24,35 +22,38 @@ import rectangle from "../../img/rectangle.png";
 import ellipse from "../../img/ellipse.png";
 import { useState } from "react";
 
-// eslint-disable-next-line react/prop-types
-function Card({ id, tweets, avatar, followers, user }) {
+function Card({
+  id,
+  tweets,
+  avatar,
+  followers,
+  alt,
+  updateButtonState,
+  getButtonState,
+}) {
   const [following, setFollowing] = useState(followers);
-  const [isFollowed, setIsFollowed] = useState();
-
-  // useEffect(() => {
-  //   const contacts = localStorage.getItem("IsFollowedStatus");
-  //   console.log("contacts", contacts);
-
-  //   // const contactsParce = JSON.parse(contacts);
-  //   // setIsFollowed(contactsParce);
-  // }, []);
+  const isFollowed = getButtonState(id);
 
   const handleFollow = () => {
-    // setIsFollowed(!isFollowed);
-    localStorage.setItem("IsFollowedStatus", JSON.stringify(!isFollowed));
-    const contacts = localStorage.getItem("IsFollowedStatus");
-    const contactsParce = JSON.parse(contacts);
-    setIsFollowed(contactsParce);
+    const updatedStatus = !isFollowed;
 
-    fetch(`https://6453dfb6c18adbbdfeaa041f.mockapi.io/tweets/users/${id}`, {
-      method: "PUT",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ followers: following + (isFollowed ? -1 : 1) }),
-    })
-      .then((res) => res.json())
-      .then((results) => {
-        return setFollowing(results.followers);
-      });
+    updateButtonState(id, updatedStatus);
+
+    try {
+      fetch(`https://6453dfb6c18adbbdfeaa041f.mockapi.io/tweets/users/${id}`, {
+        method: "PUT",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          followers: following + (isFollowed ? -1 : 1),
+        }),
+      })
+        .then((res) => res.json())
+        .then((results) => {
+          return setFollowing(results.followers);
+        });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -63,7 +64,7 @@ function Card({ id, tweets, avatar, followers, user }) {
           <Logo src={logo} alt="GoIT logo" />
           <Rectangle src={rectangle} alt="rectangle" />
           <Ellipse src={ellipse} alt="ellipse" />
-          <Userpic src={avatar} alt={user} />
+          <Userpic src={avatar} alt={alt} />
         </div>
 
         <BottomContainer>
@@ -95,3 +96,13 @@ function Card({ id, tweets, avatar, followers, user }) {
 }
 
 export default Card;
+
+Card.propTypes = {
+  id: PropTypes.string.isRequired,
+  tweets: PropTypes.number.isRequired,
+  avatar: PropTypes.string.isRequired,
+  followers: PropTypes.number.isRequired,
+  alt: PropTypes.string.isRequired,
+  updateButtonState: PropTypes.func.isRequired,
+  getButtonState: PropTypes.func.isRequired,
+};
