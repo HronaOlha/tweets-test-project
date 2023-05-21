@@ -19,7 +19,7 @@ a {
 }
 
 body {
-  margin: 0;
+  margin: 24px;
   display: flex;
   justify-content: center;
   align-items: center;
